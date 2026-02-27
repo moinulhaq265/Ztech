@@ -1,0 +1,399 @@
+:root {
+    /* Color Palette - Cyber Space Theme */
+    --bg-dark: #050505;
+    --bg-darker: #000000;
+    --neon-cyan: #00f2ff;
+    --neon-purple: #bc13fe;
+    --neon-pink: #ff00e6;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-white: #ffffff;
+    --text-gray: #a0a0a0;
+
+    /* Transitions */
+    --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.2s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    overflow-x: hidden;
+    line-height: 1.6;
+    background-image:
+        radial-gradient(circle at 20% 30%, rgba(0, 242, 255, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(188, 19, 254, 0.05) 0%, transparent 40%);
+}
+
+/* Glassmorphism Utility */
+.glass-effect {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    transition: var(--transition-slow);
+}
+
+.glass-effect:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Neon Glow Animations */
+@keyframes neon-pulse {
+    0% {
+        filter: drop-shadow(0 0 5px var(--neon-cyan));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 20px var(--neon-cyan));
+    }
+
+    100% {
+        filter: drop-shadow(0 0 5px var(--neon-cyan));
+    }
+}
+
+@keyframes levitate {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.levitating {
+    animation: levitate 5s ease-in-out infinite;
+}
+
+.card:hover {
+    border-color: var(--neon-cyan);
+    transform: scale(1.05) translateY(-5px) !important;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.card i {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Layout Containers */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+section {
+    padding: 100px 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Orbital Mechanics */
+.orbit-ring {
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    /* Solid but very faint */
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes orbit {
+    from {
+        transform: rotate(0deg) translateX(var(--radius)) rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg) translateX(var(--radius)) rotate(-360deg);
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+.cursor {
+    color: var(--neon-cyan);
+    animation: blink 0.7s infinite;
+    margin-left: 5px;
+    font-weight: 300;
+}
+
+
+.skill-planet {
+    position: absolute;
+    animation: orbit var(--duration) linear infinite;
+    z-index: 5;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+h1,
+h2,
+h3 {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+#bridge .glass-effect {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#bridge .glass-effect:hover {
+    opacity: 0.8;
+}
+
+#bridge .glass-effect::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 242, 255, 0.1) 0%, transparent 70%);
+    z-index: -1;
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Registration Form Stylings */
+#registration-form input:focus,
+#registration-form select:focus,
+#registration-form textarea:focus {
+    border-color: var(--neon-cyan) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+}
+
+#registration-form button:hover {
+    background: rgba(0, 242, 255, 0.1);
+    box-shadow: 0 0 20px var(--neon-cyan);
+}
+
+/* Custom Select Arrow Fix */
+#course {
+    background-image: linear-gradient(45deg, transparent 50%, gray 50%), linear-gradient(135deg, gray 50%, transparent 50%);
+    background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+}
+
+/* Chatbot Nexus Stylings */
+#chat-window.active {
+    display: flex !important;
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+}
+
+.ai-msg {
+    border-left: 2px solid var(--neon-cyan) !important;
+}
+
+.user-msg {
+    align-self: flex-end !important;
+    background: rgba(188, 19, 254, 0.1) !important;
+    border-right: 2px solid var(--neon-purple) !important;
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    max-width: 80%;
+}
+
+#chat-fab:hover {
+    box-shadow: 0 0 25px var(--neon-cyan);
+    transform: scale(1.1) !important;
+}
+
+#chat-body::-webkit-scrollbar {
+    width: 5px;
+}
+
+#chat-body::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 10px;
+}
+
+/* Navigation Animations */
+.nav-links a {
+    position: relative;
+    padding: 5px 10px;
+    transition: var(--transition-fast);
+    border-radius: 4px;
+}
+
+.nav-links a:hover {
+    color: var(--neon-cyan) !important;
+    text-shadow: 0 0 10px var(--neon-cyan);
+    background: rgba(0, 242, 255, 0.08);
+    /* Re-checking naming convention */
+    border: 1px solid var(--neon-purple);
+    box-shadow: 0 0 20px var(--neon-purple);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--neon-cyan);
+    transition: var(--transition-fast);
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.nav-links a:hover::after {
+    width: 80%;
+}
+
+/* Certificate Lighting & Animations */
+.certificate-badge {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #ffd700, #ffae00);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    z-index: 10;
+    transition: var(--transition-slow);
+    overflow: hidden;
+}
+
+.card:hover .certificate-badge {
+    transform: rotate(360deg) scale(1.2);
+    box-shadow: 0 0 30px #ffd700;
+}
+
+/* Light Sweep Effect */
+.certificate-badge::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -150%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(to right,
+            transparent 0%,
+            rgba(255, 255, 255, 0.8) 50%,
+            transparent 100%);
+    transform: rotate(45deg);
+    transition: all 0.6s ease;
+}
+
+.card:hover .certificate-badge::after {
+    left: 150%;
+}
+
+/* Why Ztech Section */
+.why-card {
+    border-left: 4px solid var(--neon-cyan);
+    padding: 30px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+/* Testimonials Grid */
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.testimonial-card {
+    padding: 30px;
+    text-align: left;
+    font-style: italic;
+    position: relative;
+}
+
+.testimonial-card b {
+    display: block;
+    margin-top: 15px;
+    font-style: normal;
+    color: var(--neon-purple);
+}
+
+footer {
+    padding: 50px;
+    text-align: center;
+    border-top: 1px solid var(--glass-border);
+}
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+    section {
+        padding: 60px 0;
+    }
+
+    .nav-links {
+        display: none !important;
+        /* Simplified for now, could add a burger menu later */
+    }
+
+    h1 {
+        font-size: 2.5rem !important;
+    }
+
+    #universe-container {
+        height: 300px;
+    }
+}
