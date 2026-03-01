@@ -19,21 +19,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function handleLogin() {
         const password = adminPassword.value;
+        const submitBtn = loginBtn;
+        submitBtn.innerText = 'AUTHENTICATING...';
+        submitBtn.style.opacity = '0.7';
+
         try {
-            const res = await fetch(`${API_URL}/admin/login`, {
+            const res = await fetch(`${API_URL}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ password })
             });
+
+            if (res.status === 401) {
+                alert('🔴 Invalid Access Key. Access Denied.');
+                submitBtn.innerText = 'AUTHENTICATE';
+                submitBtn.style.opacity = '1';
+                return;
+            }
+
             const data = await res.json();
             if (data.token) {
                 localStorage.setItem('ztech_admin_token', data.token);
                 showDashboard();
             } else {
-                alert('Invalid Access Key');
+                alert('Invalid Response from Nexus.');
             }
         } catch (err) {
-            alert('Server Offline. Ensure Ztech Engine is running.');
+            console.error('Nexus Connection Error:', err);
+            alert('🚨 Nexus Connection Failed!\n1. Ensure MongoDB URI is set in Vercel.\n2. Ensure ADMIN_PASSWORD is set in Vercel.\n3. Check Vercel Logs for build errors.');
+            submitBtn.innerText = 'AUTHENTICATE';
+            submitBtn.style.opacity = '1';
         }
     }
 
