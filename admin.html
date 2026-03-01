@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ztech Admin | Nexus Control</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Outfit:wght@300;600;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: #050505;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        #login-section {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        #dashboard-section {
+            display: none;
+            width: 95%;
+            max-width: 1400px;
+            padding: 40px;
+            margin-top: 80px;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            font-size: 0.9rem;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .admin-table th {
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 800;
+        }
+
+        .status-pending {
+            background: rgba(255, 174, 0, 0.1);
+            color: #ffae00;
+            border: 1px solid #ffae00;
+        }
+
+        .status-interview-scheduled {
+            background: rgba(0, 242, 255, 0.1);
+            color: var(--neon-cyan);
+            border: 1px solid var(--neon-cyan);
+        }
+
+        .status-selected {
+            background: rgba(0, 255, 127, 0.1);
+            color: #00ff7f;
+            border: 1px solid #00ff7f;
+        }
+
+        .status-not-selected {
+            background: rgba(255, 0, 0, 0.1);
+            color: #ff4444;
+            border: 1px solid #ff4444;
+        }
+
+        select.status-select {
+            background: #111;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 5px;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .export-btn {
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            float: right;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="glass-effect"
+        style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 1200px; z-index: 1000; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;">
+        <div class="logo" style="font-weight: 800; font-size: 1.5rem; letter-spacing: 2px;">Z<span
+                class="gradient-text">TECH</span> <span style="font-size: 0.7rem; opacity: 0.5;">ADMIN</span></div>
+        <button id="logout-btn"
+            style="display: none; background: none; border: 1px solid red; color: red; padding: 5px 15px; border-radius: 5px; cursor: pointer;">EXIT
+            NEXUS</button>
+    </nav>
+
+    <div id="login-section" class="glass-effect" style="padding: 40px;">
+        <h2 class="orbitron-text" style="margin-bottom: 20px;">Admin <span class="gradient-text">Access</span></h2>
+        <input type="password" id="admin-password" placeholder="Enter Access Key"
+            style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: white; outline: none; margin-bottom: 20px; text-align: center;">
+        <button id="login-btn" class="submit-btn" style="width: 100%;">AUTHENTICATE</button>
+    </div>
+
+    <div id="dashboard-section" class="glass-effect">
+        <div
+            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 20px; flex-wrap: wrap;">
+            <h2 class="orbitron-text">Global <span class="gradient-text">Applications</span></h2>
+
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <label for="status-filter" style="font-size: 0.8rem; opacity: 0.7;">Filter by Status:</label>
+                <select id="status-filter" class="status-select" style="min-width: 180px; padding: 10px;">
+                    <option value="All">All Applications</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Interview Scheduled">Interview Scheduled</option>
+                    <option value="Selected">Selected</option>
+                    <option value="Not Selected">Not Selected</option>
+                </select>
+                <button id="export-btn" class="export-btn" style="margin-bottom: 0;">EXPORT TO CSV 📥</button>
+            </div>
+        </div>
+
+        <div style="overflow-x: auto;">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Email / Contact</th>
+                        <th>Specialty</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="applications-table-body">
+                    <!-- Data will be injected here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+
+</html>
