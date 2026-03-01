@@ -15,12 +15,23 @@ module.exports = async (req, res) => {
         return res.status(405).json({ message: 'Method Not Allowed' });
     }
 
-    const { password } = req.body;
+    try {
+        const { password } = req.body;
 
-    if (password === process.env.ADMIN_PASSWORD) {
-        const token = jwt.sign({ admin: true }, process.env.JWT_SECRET, { expiresIn: '8h' });
-        return res.json({ token });
-    } else {
-        return res.status(401).json({ message: 'Invalid Credentials' });
+        if (!process.env.JWT_SECRET || !process.env.ADMIN_PASSWORD) {
+            return res.status(500).json({
+                message: 'Nexus Configuration Error: Missing Environment Variables (JWT_SECRET or ADMIN_PASSWORD) in Vercel Settings.'
+            });
+        }
+
+        if (password === process.env.ADMIN_PASSWORD) {
+            const token = jwt.sign({ admin: true }, process.env.JWT_SECRET, { expiresIn: '8h' });
+            return res.json({ token });
+        } else {
+            return res.status(401).json({ message: 'Invalid Credentials' });
+        }
+    } catch (err) {
+        console.error('Login Error:', err);
+        return res.status(500).json({ message: 'Internal Server Error', error: err.message });
     }
 };
