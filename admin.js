@@ -37,6 +37,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            if (!res.ok) {
+                if (res.status === 404) {
+                    throw new Error('API Entry Point Not Found (404). Ensure files are inside the "api" folder on GitHub.');
+                } else {
+                    const errText = await res.text();
+                    throw new Error(`Nexus Error (${res.status}): ${errText.substring(0, 50)}...`);
+                }
+            }
+
             const data = await res.json();
             if (data.token) {
                 localStorage.setItem('ztech_admin_token', data.token);
@@ -46,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (err) {
             console.error('Nexus Connection Error:', err);
-            alert('🚨 Nexus Connection Failed!\n1. Ensure MongoDB URI is set in Vercel.\n2. Ensure ADMIN_PASSWORD is set in Vercel.\n3. Check Vercel Logs for build errors.');
+            alert(`🚨 CONNECTION FAILED!\n\nError: ${err.message}\n\nChecklist:\n1. Are files inside "api" folder on GitHub?\n2. Did you set MONGODB_URI in Vercel?\n3. Check Vercel build logs for errors.`);
             submitBtn.innerText = 'AUTHENTICATE';
             submitBtn.style.opacity = '1';
         }
