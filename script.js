@@ -221,6 +221,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     form.style.display = 'none';
                     successMsg.style.display = 'block';
                     successMsg.classList.add('levitating');
+                    
+                    setTimeout(() => {
+                        form.reset();
+                        form.style.display = 'block';
+                        successMsg.style.display = 'none';
+                        successMsg.classList.remove('levitating');
+                        button.innerText = 'SUBMIT';
+                        button.style.opacity = '1';
+                    }, 5000);
                 } else {
                     throw new Error('Nexus Sync Failed');
                 }
@@ -283,14 +292,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
 
                     if (res.ok) {
-                        const modalContent = internshipModal.querySelector('.modal-content');
-                        modalContent.innerHTML = `
-                            <div style="text-align: center; padding: 20px;">
-                                <h2 class="orbitron-text gradient-text">Transmission Successful!</h2>
-                                <p style="margin-top: 20px; color: #e0e0e0; opacity: 0.9;">Your application has been logged into the Ztech Core. Our commanders will contact you soon.</p>
-                                <button onclick="location.reload()" class="submit-btn" style="margin-top: 30px; max-width: 200px; display: inline-block;">RESET SYSTEM</button>
-                            </div>
-                        `;
+                        internshipForm.style.display = 'none';
+                        
+                        let successMsg = internshipModal.querySelector('.internship-success');
+                        if (!successMsg) {
+                            successMsg = document.createElement('div');
+                            successMsg.className = 'internship-success';
+                            successMsg.innerHTML = `
+                                <div style="text-align: center; padding: 20px;">
+                                    <h2 class="orbitron-text gradient-text">Transmission Successful!</h2>
+                                    <p style="margin-top: 20px; color: #e0e0e0; opacity: 0.9;">Your application has been logged into the Ztech Core. Our commanders will contact you soon.</p>
+                                </div>
+                            `;
+                            internshipForm.parentElement.appendChild(successMsg);
+                        }
+                        successMsg.style.display = 'block';
+
+                        setTimeout(() => {
+                            internshipForm.reset();
+                            internshipForm.style.display = 'block';
+                            successMsg.style.display = 'none';
+                            submitBtn.innerHTML = 'SUBMIT APPLICATION 🚀';
+                            submitBtn.style.pointerEvents = 'auto';
+                            submitBtn.style.opacity = '1';
+                        }, 5000);
                     } else {
                         throw new Error('Sync Failed');
                     }

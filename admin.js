@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tableBody = document.getElementById('applications-table-body');
     const exportBtn = document.getElementById('export-btn');
     const statusFilter = document.getElementById('status-filter');
+    const typeFilter = document.getElementById('type-filter');
 
     const API_URL = '/api';
     let allApplications = [];
@@ -97,15 +98,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function applyFilter() {
-        const filterValue = statusFilter.value;
-        const filtered = filterValue === 'All'
-            ? allApplications
-            : allApplications.filter(app => app.status === filterValue);
+        const statusVal = statusFilter.value;
+        const typeVal = typeFilter ? typeFilter.value : 'All';
+        
+        let filtered = allApplications;
+        
+        if (statusVal !== 'All') {
+            filtered = filtered.filter(app => app.status === statusVal);
+        }
+        
+        if (typeVal !== 'All') {
+            filtered = filtered.filter(app => app.type === typeVal);
+        }
+        
         renderTable(filtered);
     }
 
     if (statusFilter) {
         statusFilter.addEventListener('change', applyFilter);
+    }
+    
+    if (typeFilter) {
+        typeFilter.addEventListener('change', applyFilter);
     }
 
     function renderTable(apps) {
@@ -155,10 +169,18 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     exportBtn.addEventListener('click', () => {
-        const filterValue = statusFilter.value;
-        const appsToExport = filterValue === 'All'
-            ? allApplications
-            : allApplications.filter(app => app.status === filterValue);
+        const statusVal = statusFilter.value;
+        const typeVal = typeFilter ? typeFilter.value : 'All';
+        
+        let appsToExport = allApplications;
+        
+        if (statusVal !== 'All') {
+            appsToExport = appsToExport.filter(app => app.status === statusVal);
+        }
+        
+        if (typeVal !== 'All') {
+            appsToExport = appsToExport.filter(app => app.type === typeVal);
+        }
 
         let csvContent = "data:text/csv;charset=utf-8,"
             + "Date,Name,Email,Contact,Course,Type,Status\n"
@@ -167,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement("a");
         link.setAttribute("href", encodedUri);
-        link.setAttribute("download", `ztech_applications_${filterValue}_${new Date().toISOString().split('T')[0]}.csv`);
+        link.setAttribute("download", `ztech_applications_${typeVal}_${statusVal}_${new Date().toISOString().split('T')[0]}.csv`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

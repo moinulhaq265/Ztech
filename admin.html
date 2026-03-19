@@ -131,7 +131,13 @@
             <h2 class="orbitron-text">Global <span class="gradient-text">Applications</span></h2>
 
             <div style="display: flex; gap: 15px; align-items: center;">
-                <label for="status-filter" style="font-size: 0.8rem; opacity: 0.7;">Filter by Status:</label>
+                <label for="type-filter" style="font-size: 0.8rem; opacity: 0.7;">Type:</label>
+                <select id="type-filter" class="status-select" style="min-width: 140px; padding: 10px;">
+                    <option value="All">All Types</option>
+                    <option value="admission">Admission</option>
+                    <option value="internship">Internship</option>
+                </select>
+                <label for="status-filter" style="font-size: 0.8rem; opacity: 0.7; margin-left: 10px;">Status:</label>
                 <select id="status-filter" class="status-select" style="min-width: 180px; padding: 10px;">
                     <option value="All">All Applications</option>
                     <option value="Pending">Pending</option>
@@ -139,7 +145,7 @@
                     <option value="Selected">Selected</option>
                     <option value="Not Selected">Not Selected</option>
                 </select>
-                <button id="export-btn" class="export-btn" style="margin-bottom: 0;">EXPORT TO CSV 📥</button>
+                <button id="export-btn" class="export-btn" style="margin-bottom: 0; margin-left: 10px;">EXPORT TO CSV 📥</button>
             </div>
         </div>
 
