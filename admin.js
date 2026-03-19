@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchApplications() {
         try {
-            const res = await fetch(`${API_URL}/admin/applications`, {
+            const res = await fetch(`${API_URL}/applications`, {
                 headers: { 'x-auth-token': localStorage.getItem('ztech_admin_token') }
             });
             if (res.status === 401) {
