@@ -143,20 +143,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Simulated AI logic
         setTimeout(() => {
-            let response = "I am processing your query. For detailed specs, ask about 'WordPress', 'Marketing', 'Android', 'Shopify', 'Full Stack', 'Video', 'Graphics', or 'UI/UX'.";
+            let response = "I am processing your query. Feel free to ask about our courses, paid internships, location, or contact info.";
 
-            if (text.includes('wordpress')) response = "Our WordPress mastery course covers everything from theme development to high-end CMS customization.";
-            if (text.includes('marketing')) response = "Digital Marketing at Ztech focuses on SEO, SEM, and modern performance marketing strategies.";
-            if (text.includes('android')) response = "The Android Development program turns you into a mobile architect using Kotlin and modern app frameworks.";
-            if (text.includes('shopify') || text.includes('e-commerce')) response = "Learn to launch and scale profitable stores using Shopify and specialized E-Commerce stacks.";
-            if (text.includes('full stack') || text.includes('stack')) response = "Our Full Stack program is a deep-dive into MERN (MongoDB, Express, React, Node) architecture.";
-            if (text.includes('ui/ux') || text.includes('design')) response = "UI/UX Design at Ztech is about creating digital poetry—blending aesthetics with seamless user journeys.";
-            if (text.includes('web')) response = "Our Web Development division constructs high-performance, responsive digital architecture with futuristic aesthetics.";
-            if (text.includes('ai')) response = "The AI Nexus develops autonomous agents tailored for efficiency and next-gen intelligence.";
-            if (text.includes('video')) response = "Our Video commanders specialize in cinematic transitions and mind-bending visual effects.";
-            if (text.includes('graphics')) response = "Graphic design at Ztech involves creating branding that lives and breathes in the digital void.";
-            if (text.includes('internship') || text.includes('job')) response = "Our paid internships are the bridge to your career. Perform well in your course, and you're in!";
-            if (text.includes('hello') || text.includes('hi')) response = "Greetings. I am Nexus. Ready to assist in your digital transcendence?";
+            if (text.includes('course') || text.includes('service')) response = "We provide Android Development, E-commerce/Shopify, Video Editing, Graphic Designing, and UI/UX Design.";
+            else if (text.includes('internship') || text.includes('job') || text.includes('training')) response = "We offer both training and internships. After students complete our specialized courses, we onboard them for internships. We explicitly offer Paid Internships to deserving candidates based on their performance.";
+            else if (text.includes('location') || text.includes('address') || text.includes('where')) response = "Our office is located Opposite COMSATS University, Abbottabad.";
+            else if (text.includes('contact') || text.includes('phone') || text.includes('whatsapp') || text.includes('number')) response = "You can reach us via Phone/WhatsApp at +92 315 4565603.";
+            else if (text.includes('wordpress')) response = "Our WordPress mastery course covers everything from theme development to high-end CMS customization.";
+            else if (text.includes('marketing')) response = "Digital Marketing at Ztech focuses on SEO, SEM, and modern performance marketing strategies.";
+            else if (text.includes('android')) response = "The Android Development program turns you into a mobile architect using Kotlin and modern app frameworks.";
+            else if (text.includes('shopify') || text.includes('e-commerce')) response = "Learn to launch and scale profitable stores using Shopify and specialized E-Commerce stacks.";
+            else if (text.includes('full stack') || text.includes('stack')) response = "Our Full Stack program is a deep-dive into MERN (MongoDB, Express, React, Node) architecture.";
+            else if (text.includes('ui/ux') || text.includes('design')) response = "UI/UX Design at Ztech is about creating digital poetry—blending aesthetics with seamless user journeys.";
+            else if (text.includes('web')) response = "Our Web Development division constructs high-performance, responsive digital architecture with futuristic aesthetics.";
+            else if (text.includes('ai')) response = "The AI Nexus develops autonomous agents tailored for efficiency and next-gen intelligence.";
+            else if (text.includes('video')) response = "Our Video commanders specialize in cinematic transitions and mind-bending visual effects.";
+            else if (text.includes('graphics')) response = "Graphic design at Ztech involves creating branding that lives and breathes in the digital void.";
+            else if (text.includes('hello') || text.includes('hi')) response = "Greetings. I am the Ztech Support Assistant. How can I assist you today? You can ask me about our courses, paid internships, location, or contact info.";
 
             addMessage(response, 'ai');
         }, 1000);
