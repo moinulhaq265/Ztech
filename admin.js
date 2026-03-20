@@ -100,24 +100,24 @@ document.addEventListener('DOMContentLoaded', () => {
     function applyFilter() {
         const statusVal = statusFilter.value;
         const typeVal = typeFilter ? typeFilter.value : 'All';
-        
+
         let filtered = allApplications;
-        
+
         if (statusVal !== 'All') {
             filtered = filtered.filter(app => app.status === statusVal);
         }
-        
+
         if (typeVal !== 'All') {
             filtered = filtered.filter(app => app.type === typeVal);
         }
-        
+
         renderTable(filtered);
     }
 
     if (statusFilter) {
         statusFilter.addEventListener('change', applyFilter);
     }
-    
+
     if (typeFilter) {
         typeFilter.addEventListener('change', applyFilter);
     }
@@ -171,13 +171,13 @@ document.addEventListener('DOMContentLoaded', () => {
     exportBtn.addEventListener('click', () => {
         const statusVal = statusFilter.value;
         const typeVal = typeFilter ? typeFilter.value : 'All';
-        
+
         let appsToExport = allApplications;
-        
+
         if (statusVal !== 'All') {
             appsToExport = appsToExport.filter(app => app.status === statusVal);
         }
-        
+
         if (typeVal !== 'All') {
             appsToExport = appsToExport.filter(app => app.type === typeVal);
         }
