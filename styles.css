@@ -96,6 +96,30 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
+.services-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+.services-grid .card {
+    flex: 1 1 280px;
+    max-width: calc(33.333% - 26.67px);
+}
+
+@media (max-width: 992px) {
+    .services-grid .card {
+        max-width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 600px) {
+    .services-grid .card {
+        max-width: 100%;
+    }
+}
+
 /* Layout Containers */
 .container {
     max-width: 1200px;
